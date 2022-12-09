@@ -1,7 +1,7 @@
-import repository from '../data/excel.data';
+import repository from '../data/cell.repository';
 import { Cell } from '../models/cell';
 
-const excelController = {
+const xSpreadsheetController = {
 
     saveChange : async function(req: any, res: any){
     
@@ -58,4 +58,4 @@ const excelController = {
 
 }
 
-export default excelController;
+export default xSpreadsheetController;

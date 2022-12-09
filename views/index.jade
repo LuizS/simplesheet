@@ -1,46 +1,4 @@
 extends layout
 
 block content
-  form(method="POST", action="saveAll")
-    button(type="button",onclick="serializeData()") Save
-    input(type="hidden",id="sheetData",value="",name="sheetData")
-    div(id="x-spreadsheet-demo")
-  script.
-    var xs = {};
-    function serializeData()
-    {
-      document.getElementById("sheetData").value = JSON.stringify(xs.getData()[0].rows);
-      document.forms[0].submit();  
-    }
-    function load(){
-      const rows = !{JSON.stringify(Rows)};
-      xs = x_spreadsheet('#x-spreadsheet-demo', {showToolbar: false, showGrid: true})
-        .loadData([{
-          freeze: 'B3',
-          styles: [
-            {
-              bgcolor: '#f4f5f8',
-              textwrap: true,
-              color: '#900b09',
-              border: {
-                top: ['thin', '#0366d6'],
-                bottom: ['thin', '#0366d6'],
-                right: ['thin', '#0366d6'],
-                left: ['thin', '#0366d6'],
-              },
-            },
-          ],
-          cols: {
-            len: 10,
-            0: { width: 200 },
-          },
-          rows,
-        }]);/*.change((cdata) => {
-          console.log('>>>', xs.getData());
-        });*/
-
-      x_spreadsheet.locale("de");
-    
-    }
-  script(src="javascripts/xspreadsheet.js")
-  script(src="javascripts/de.js")
+  h1=title

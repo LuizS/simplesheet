@@ -40,11 +40,10 @@ const dbModel = function (collectionName) {
                 client.close();
             }
         },
-        save: async function (object) {
+        save: async function (object, query) {
             try {
                 console.log("upsert element");
-                const updatedDocument = await getCollection().updateOne({ _id: object._id }, { $set: object }, { upsert: true });
-                console.log(`${updatedDocument.upsertedCount} documents were upserted.`);
+                const updatedDocument = await getCollection().updateOne(query, { $set: object }, { upsert: true });
             }
             catch (e) {
                 console.log(`A MongoWriteException occurred: ${e}.`);

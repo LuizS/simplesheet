@@ -1,9 +1,8 @@
 import db from './db';
 import { Cell } from '../models/cell';
-import {ObjectId}  from 'mongodb';
 
 const dbModel = db("sheetContents");
-const excelData = {
+const cellRepository = {
 
     getAll: async(): Promise<Cell[]> => {
 
@@ -30,25 +29,7 @@ const excelData = {
         return cells;
 
     }  ,
-    get: async function(row: number, column:number){
-        return dbModel.get({row: row, column: column})
-    } ,
-    save: async function(cell: Cell ) {
-
-        var item = await this.get(cell.row,cell.column);
-
-        item = item || {
-            row: cell.row,
-            column: cell.column,
-            _id: new ObjectId()
-        }
-
-        item.content = cell.content;
-        
-        return dbModel.save(item);
-    },
-    saveAll: async function(data: Cell[] ) {
-        return dbModel.saveAll(data);
-    }
+    save: async (cell: Cell) => dbModel.save(cell, {column: cell.column, row: cell.row}),
+    saveAll: async (data: Cell[]) => dbModel.saveAll(data)
 }
-export default excelData;
+export default cellRepository;

@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const excel_data_1 = __importDefault(require("../data/excel.data"));
-const excelController = {
+const cell_repository_1 = __importDefault(require("../data/cell.repository"));
+const xSpreadsheetController = {
     saveChange: async function (req, res) {
         let cell = {
             row: req.body.row,
@@ -12,7 +12,7 @@ const excelController = {
             content: req.body.content
         };
         console.log(cell);
-        excel_data_1.default.save(cell);
+        cell_repository_1.default.save(cell);
         res.sendStatus(200);
     },
     saveAll: async function (req, res) {
@@ -31,17 +31,17 @@ const excelController = {
                 });
             });
         });
-        await excel_data_1.default.saveAll(result);
+        await cell_repository_1.default.saveAll(result);
         res.sendStatus(200);
     },
     showExcel: async function (res) {
-        var items = await excel_data_1.default.getAll();
+        var items = await cell_repository_1.default.getAll();
         var mappedCells = {};
         items.forEach(e => {
             mappedCells[e.row] = mappedCells[e.row] || { cells: {} };
             mappedCells[e.row].cells[e.column] = { text: e.content };
         });
-        res.render('index', { title: "App", Rows: mappedCells });
+        res.render('xspreadsheet', { title: "App", Rows: mappedCells });
     }
 };
-exports.default = excelController;
+exports.default = xSpreadsheetController;

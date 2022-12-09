@@ -38,11 +38,10 @@ const dbModel = function(collectionName: string) {
                      client.close();
                 }
             },
-            save: async function(object: mongo.WithId<mongo.Document> ){
+            save: async function(object: any, query: any){
                 try {
                     console.log("upsert element");
-                    const updatedDocument = await getCollection().updateOne({_id: object._id}, { $set: object},  { upsert: true });
-                    console.log(`${updatedDocument.upsertedCount} documents were upserted.`);
+                    const updatedDocument = await getCollection().updateOne(query, { $set: object},  { upsert: true });
                 } catch(e) {
                     console.log(`A MongoWriteException occurred: ${e}.`);
                 } finally {
@@ -50,7 +49,7 @@ const dbModel = function(collectionName: string) {
                      client.close();
                 }
             },
-            saveAll: async function(data: Cell[] ){
+            saveAll: async function(data: any[] ){
                 try {
                     // console.log("opening collection");
                     const collection = getCollection();
