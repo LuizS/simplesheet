@@ -1,0 +1,31 @@
+{
+  "name": "simplesheet",
+  "packageManager": "yarn@3.3.0",
+  "main": "./bin/www",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node ./bin/www",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./bin/www\""
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.14",
+    "@types/http-errors": "^2.0.1",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^17.0.45",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "^4.18.2",
+    "http-errors": "~1.6.3",
+    "jade": "^0.29.0",
+    "mongodb": "^4.12.1",
+    "morgan": "~1.9.1"
+  }
+}
