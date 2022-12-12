@@ -1,14 +1,17 @@
+require('dotenv').config()
 import mongo, { MongoClient } from 'mongodb';
 
 const dbModel = function(collectionName: string) {
+
+    console.log(`connectingo to ${process.env.MONGODB_URI}`);
     
-    const client = new MongoClient("mongodb://0.0.0.0:27017/");
+    const client = new MongoClient(process.env.MONGODB_URI || "");
 
     function getCollection(){
         //console.log("connection to mongo client");
         client.connect();
         //console.log("selecting db");
-        const db = client.db("simplesheet");
+        const db = client.db(process.env.MONGODB_NAME);
         //console.log("opening collection");
         return db.collection(collectionName);
     }
