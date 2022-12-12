@@ -14,11 +14,7 @@ class StandardViewModelConverter {
         // console.log(data);
         for (var row = 0; row < data.length; row++) {
             for (var column = 0; column < data[row].length; column++) {
-                result.push({
-                    row: row,
-                    column: column,
-                    content: data[row][column]
-                });
+                result.push(this.convertToModel(row, column, data[row][column]));
             }
         }
         return result;

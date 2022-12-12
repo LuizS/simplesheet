@@ -1,5 +1,4 @@
 import mongo, { MongoClient } from 'mongodb';
-import { Cell } from '../models/cell';
 
 const dbModel = function(collectionName: string) {
     

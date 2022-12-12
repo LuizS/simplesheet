@@ -19,14 +19,7 @@ class XSpreadsheetViewModelConverter extends standard_viewmodel_converter_1.defa
         entries.filter((value, key) => { return value[1].cells !== undefined; })
             .forEach((value, row) => {
             var subentries = Object.entries(value[1].cells);
-            return subentries.forEach((cell, key) => {
-                // console.log(cell)
-                result.push({
-                    row: row,
-                    column: cell[0],
-                    content: cell[1].text
-                });
-            });
+            return subentries.forEach((cell, key) => result.push(this.convertToModel(row, cell[0], cell[1].text)));
         });
         console.log(result);
         return result;
@@ -37,7 +30,7 @@ class XSpreadsheetViewModelConverter extends standard_viewmodel_converter_1.defa
             viewModels[e.row] = viewModels[e.row] || { cells: {} };
             viewModels[e.row].cells[e.column] = { text: e.content };
         });
-        console.log(viewModels);
+        //console.log(viewModels);
         return viewModels;
     }
 }

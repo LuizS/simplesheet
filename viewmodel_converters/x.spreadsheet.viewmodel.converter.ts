@@ -20,16 +20,10 @@ export default class XSpreadsheetViewModelConverter extends StandardViewModelCon
         var result:Cell[] = [];
 
         entries.filter((value:any, key: any) => {return value[1].cells!==undefined})
-                                .forEach((value: any, row: any) => {
+                                .forEach((value: any) => {
                                     var subentries =Object.entries(value[1].cells);
-                                    return subentries.forEach((cell: any, key: any) => {
-                                      // console.log(cell)
-                                        result.push({
-                                            row: row,
-                                            column: cell[0],
-                                            content: cell[1].text
-                                        });
-                                    });
+                                  //  console.log(row);
+                                    return subentries.forEach((cell: any, key: any) => result.push(this.convertToModel(parseInt(value[0]), parseInt(cell[0]), cell[1].text)));
                                 });
         
         console.log(result);
@@ -46,10 +40,11 @@ export default class XSpreadsheetViewModelConverter extends StandardViewModelCon
             viewModels[e.row] = viewModels[e.row] || {cells:{}};
             viewModels[e.row].cells[e.column] = {text: e.content};
          });
-         console.log(viewModels);
+
+         //console.log(viewModels);
+         
          return viewModels;
         
     }
-
 
 }
