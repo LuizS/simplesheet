@@ -1,6 +1,5 @@
 {
   "name": "simplesheet",
-  "packageManager": "yarn@3.3.0",
   "main": "./bin/www",
   "license": "MIT",
   "scripts": {

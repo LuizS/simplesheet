@@ -13,8 +13,11 @@ class StandardViewModelConverter {
         var result = [];
         // console.log(data);
         for (var row = 0; row < data.length; row++) {
-            for (var column = 0; column < data[row].length; column++) {
-                result.push(this.convertToModel(row, column, data[row][column]));
+            if (data[row] !== undefined) {
+                for (var column = 0; column < data[row].length; column++) {
+                    if (data[row][column] !== undefined)
+                        result.push(this.convertToModel(row, column, data[row][column]));
+                }
             }
         }
         return result;
