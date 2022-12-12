@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import Controller from '../controllers/jspreadsheet.controller';
+import JSpreadsheetController from '../controllers/jspreadsheet.controller';
 const routes = Router();
-const controller = new Controller();
+const controller = new JSpreadsheetController();
 
 routes.get('/', function(req, res, next) {
   controller.showExcel(res);

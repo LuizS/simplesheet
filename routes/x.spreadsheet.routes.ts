@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import Controller from '../controllers/x.spreadsheet.controller';
+import XSpreadsheetController from '../controllers/x.spreadsheet.controller';
 const routes = Router();
-const controller = new Controller();
+const controller = new XSpreadsheetController();
 
 routes.get('/', function(req, res, next) {
   controller.showExcel(res);

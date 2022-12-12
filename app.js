@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./dist/routes/index');
-var usersRouter = require('./dist/routes/user.routes');
 var xSpreadsheetRouter = require('./dist/routes/x.spreadsheet.routes');
 var handsontableRouter = require('./dist/routes/handsontable.routes');
 var jSpreadsheetRouter = require('./dist/routes/jspreadsheet.routes');
@@ -23,7 +22,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/x.spreadsheet', xSpreadsheetRouter);
 app.use('/handsontable', handsontableRouter);
 app.use('/jspreadsheet', jSpreadsheetRouter);
@@ -41,7 +39,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', { title: "Error", message: err.message, error: err, cssFiles: ["styles.css"]});
+  res.render('error', { title: "Error", message: err.message, error: err, cssFiles: ["styles.css"], jsFiles:[]});
 });
 
 module.exports = app;

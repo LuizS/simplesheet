@@ -5,7 +5,7 @@ import StandardController from './standard.controller';
 class XSpreadsheetController extends StandardController {
 
     constructor() {
-        super('x-spreadsheet','xspreadsheet',["xspreadsheet.css"]);     
+        super('x-spreadsheet','xspreadsheet',["xspreadsheet.css"],["xspreadsheet.js","de.js"]);     
     }
 
     override async saveAll (req: any, res: any){
@@ -43,7 +43,7 @@ class XSpreadsheetController extends StandardController {
             mappedCells[e.row].cells[e.column] = {text: e.content};
          });
         
-        res.render('xspreadsheet', {title:"x-spreadsheet example", cssFiles:["xspreadsheet.css"], Rows:mappedCells});
+        res.render('xspreadsheet', {title:"x-spreadsheet example", cssFiles:["xspreadsheet.css"], jsFiles:["xspreadsheet.js","de.js"], Rows:mappedCells});
 
     }
 

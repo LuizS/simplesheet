@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const standard_controller_1 = __importDefault(require("./standard.controller"));
 class HandsontableController extends standard_controller_1.default {
     constructor() {
-        super("handsontable", "handsontable", ["handsontable.full.min.css"]);
+        super("handsontable", "handsontable", ["handsontable.full.min.css"], ["handsontable.full.min.js"]);
     }
 }
 exports.default = HandsontableController;

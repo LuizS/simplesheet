@@ -35,9 +35,8 @@ block content
             0: { width: 200 },
           },
           rows,
-        }]);/*.change((cdata) => {
-          console.log('>>>', xs.getData());
-        });*/
+          locale: "de"
+        }]);
 
       xs.on("cell-edited", (text,ri,ci) => {
         console.log(`cell edited ${text}  ${ri}  ${ci}   `);
@@ -55,5 +54,3 @@ block content
       x_spreadsheet.locale("de");
     
     }
-  script(src="javascripts/xspreadsheet.js")
-  script(src="javascripts/de.js")

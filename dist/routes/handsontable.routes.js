@@ -6,10 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const handsontable_controller_1 = __importDefault(require("../controllers/handsontable.controller"));
 const routes = (0, express_1.Router)();
+var controller = new handsontable_controller_1.default();
 routes.get('/', function (req, res, next) {
-    handsontable_controller_1.default.showExcel(res);
+    controller.showExcel(res);
 });
 routes.post('/saveAll', function (req, res) {
-    handsontable_controller_1.default.saveAll(req, res);
+    controller.saveAll(req, res);
 });
 module.exports = routes;

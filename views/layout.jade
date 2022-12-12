@@ -4,7 +4,8 @@ html
     title= title
     each cssFile in cssFiles
       link(rel="stylesheet", href="stylesheets/#{cssFile}")
-    
+     each jsFile in jsFiles
+       script(src="javascripts/#{jsFile}")
   body(onload="load()")
     block content
 

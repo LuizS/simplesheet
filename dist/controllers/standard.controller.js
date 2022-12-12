@@ -5,10 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const cell_repository_1 = __importDefault(require("../data/cell.repository"));
 class StandardController {
-    constructor(componentName, viewName, cssFiles) {
+    constructor(componentName, viewName, cssFiles, jsFiles) {
         this.componentName = componentName;
         this.viewName = viewName;
         this.cssFiles = cssFiles;
+        this.jsFiles = jsFiles;
     }
     async saveChange(req, res) {
         let cell = {
@@ -44,7 +45,7 @@ class StandardController {
             mappedCells[e.row] = mappedCells[e.row] || [];
             mappedCells[e.row][e.column] = e.content;
         });
-        res.render(this.viewName, { title: `${this.componentName} example`, cssFiles: this.cssFiles, Rows: mappedCells });
+        res.render(this.viewName, { title: `${this.componentName} example`, cssFiles: this.cssFiles, jsFiles: this.jsFiles, Rows: mappedCells });
     }
 }
 exports.default = StandardController;
