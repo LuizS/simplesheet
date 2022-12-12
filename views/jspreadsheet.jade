@@ -1,0 +1,29 @@
+extends layout
+   
+block content
+  form(method="POST", action="jspreadsheet/saveAll")
+    button(type="button",onclick="serializeData()") Save
+    input(type="hidden",id="sheetData",value="",name="sheetData")
+    br
+    div(id="spreadsheet")
+    <script src="javascripts/jexcel.js"></script>
+    <script src="javascripts/jsuites.js"></script>
+  script.
+    console.log("Jspreadsheet demo");
+
+    function load(){
+
+    }
+
+    function serializeData()
+    {   
+        document.getElementById("sheetData").value = JSON.stringify(jspreadsheet.getData());
+        console.log(jspreadsheet.getData());
+        document.forms[0].submit();  
+    }
+
+    const data = !{JSON.stringify(Rows)};    
+
+    var jspreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
+        data:data
+    });

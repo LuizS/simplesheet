@@ -57,7 +57,7 @@ const dbModel = function (collectionName) {
             try {
                 // console.log("opening collection");
                 const collection = getCollection();
-                console.log("clear collection");
+                //console.log("clear collection");
                 const deletedDocuments = await collection.deleteMany({});
                 console.log(`${deletedDocuments.deletedCount} documents were deleted.`);
                 // console.log(`insert elements ${data}`);

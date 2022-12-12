@@ -1,25 +1,14 @@
 import repository from '../data/cell.repository';
 import { Cell } from '../models/cell';
+import StandardController from './standard.controller';
 
-const xSpreadsheetController = {
+class XSpreadsheetController extends StandardController {
 
-    saveChange : async function(req: any, res: any){
-    
-        let cell: Cell = {
-            row: req.body.row,
-            column: req.body.column,
-            content: req.body.content
-        }
+    constructor() {
+        super('x-spreadsheet','xspreadsheet',["xspreadsheet.css"]);     
+    }
 
-        console.log(cell);
-
-        repository.save(cell);
-
-        res.sendStatus(200);
-
-    },
-
-    saveAll : async function(req: any, res: any){
+    override async saveAll (req: any, res: any){
 
         var data = JSON.parse(req.body.sheetData);
         var entries =Object.entries(data);
@@ -39,10 +28,12 @@ const xSpreadsheetController = {
                                 });
 
         await repository.saveAll(result);
-        res.sendStatus(200);
 
-    },
-    showExcel : async function(res: any){
+        res.redirect("/");
+
+    }
+
+    override async showExcel(res: any){
 
         var items = await repository.getAll();
         var mappedCells:any = {};
@@ -52,10 +43,10 @@ const xSpreadsheetController = {
             mappedCells[e.row].cells[e.column] = {text: e.content};
          });
         
-        res.render('index', {title:"App", Rows: mappedCells});
+        res.render('xspreadsheet', {title:"x-spreadsheet example", cssFiles:["xspreadsheet.css"], Rows:mappedCells});
 
     }
 
 }
 
-export default xSpreadsheetController;
+export default XSpreadsheetController;
