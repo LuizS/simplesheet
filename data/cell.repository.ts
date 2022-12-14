@@ -1,35 +1,43 @@
-import db from './db';
+import DbModel from './db.model';
 import { Cell } from '../models/cell';
+import ICellRepository from './i.cell.repository';
+import IDbModel from './i.db.model';
 
-const dbModel = db("sheetContents");
-const cellRepository = {
+class CellRepository implements ICellRepository {
 
-    getAll: async(): Promise<Cell[]> => {
+    constructor() {
+        this.dbModel =  new DbModel("sheetContents");
+    }
 
-        const cursor = dbModel.getAll();
+    dbModel: IDbModel;
 
-        let cells:Cell[] = [];
+    async getAll(): Promise<Cell[]> {
+
+        const cursor = this.dbModel.getAll();
+
+        const cells:Cell[] = [];
 
         if (cursor !== undefined)
         {
-            await cursor.forEach(e => {
-                let cell: Cell = {
-                    column: e.column,
-                    row: e.row,
-                    content: e.content     
-                 }
+            await cursor.forEach((e:unknown)=> {
+                const cell: Cell = e as Cell
                 cells.push(cell);
              });
-    
-             // console.log(cells.length);
 
-             cursor.close();
+             await cursor.close();
         }
 
         return cells;
 
-    }  ,
-    save: async (cell: Cell) => dbModel.save(cell, {column: cell.column, row: cell.row}),
-    saveAll: async (data: Cell[]) => dbModel.saveAll(data)
+    } 
+
+    async  save(cell: Cell){
+        await this.dbModel.save(cell, {column: cell.column, row: cell.row});
+    } 
+
+    async saveAll(data: Cell[]) {
+        await this.dbModel.saveAll(data);
+    } 
 }
-export default cellRepository;
+
+export default CellRepository;

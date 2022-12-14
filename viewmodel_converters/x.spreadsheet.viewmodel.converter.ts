@@ -1,11 +1,13 @@
 import { Cell } from "../models/cell";
+import XSpreadsheetCell from "../models/x.spreadsheet.cell";
+import XSpreadsheetRow from "../models/x.spreadsheet.row";
 import StandardViewModelConverter from "./standard.viewmodel.converter"
 
 export default class XSpreadsheetViewModelConverter extends StandardViewModelConverter{
 
     override convertToModel(row: number, column: number, content: string) : Cell {
 
-        let cell: Cell = {
+        const cell: Cell = {
             row: row,
             column: column,
             content: content
@@ -14,37 +16,39 @@ export default class XSpreadsheetViewModelConverter extends StandardViewModelCon
         return cell;
     }
 
-    override convertToModels(data:any) : Cell[]{
+    override convertToModels(data:object) : Cell[]{
 
-        var entries =Object.entries(data);
-        var result:Cell[] = [];
+        const viewModel = data as Record<string,XSpreadsheetRow>;
+        const keys =Object.keys(viewModel);
+        const result:Cell[] = [];
 
-        entries.filter((value:any, key: any) => {return value[1].cells!==undefined})
-                                .forEach((value: any) => {
-                                    var subentries =Object.entries(value[1].cells);
-                                  //  console.log(row);
-                                    return subentries.forEach((cell: any, key: any) => result.push(this.convertToModel(parseInt(value[0]), parseInt(cell[0]), cell[1].text)));
-                                });
-        
-        console.log(result);
+        keys.forEach((rowNumber:string) => {
+            if (viewModel[rowNumber].cells !== undefined ){
+                Object.keys(viewModel[rowNumber].cells).forEach((columnNumber) => {
+                    const cell = viewModel[rowNumber].cells[parseInt(columnNumber)];
+                    result.push(this.convertToModel(parseInt(rowNumber), parseInt(columnNumber), cell.text));
+                })                
+            }
+        });
 
         return result;
     
     }
 
-    override convertToViewModels(cells: Cell[]) : string[][] | any {
+    override convertToViewModels(cells: Cell[]) : string[][] | unknown {
 
-        var viewModels:any = {};
-
+        const viewModels:Record<number,XSpreadsheetRow> = {};
+ 
         cells.forEach(e => {
-            viewModels[e.row] = viewModels[e.row] || {cells:{}};
-            viewModels[e.row].cells[e.column] = {text: e.content};
+             viewModels[e.row] = viewModels[e.row] || {
+                cells : {}
+            } as XSpreadsheetRow;
+            viewModels[e.row].cells[e.column] = {text: e.content} as XSpreadsheetCell;
          });
-
-         //console.log(viewModels);
-         
+        
          return viewModels;
         
     }
+
 
 }
