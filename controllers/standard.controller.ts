@@ -40,20 +40,20 @@ abstract class StandardController {
 
         if (sheetData == null || sheetData == "")
         {
-            void res.sendStatus(400);
+            res.sendStatus(400);
             return;
         }
 
         try{
             const data = JSON.parse(sheetData) as SheetDataViewModel;
             await this.repository.saveAll(this.viewModelConverter.convertToModels(data));
-            void res.redirect("/");
+            res.redirect("/");
         } catch(e)
         {
             const error:Error=e as Error;
             // handle JSON Parsing errors
             if (error.name=="SyntaxError"){
-                void res.sendStatus(400);
+                res.sendStatus(400);
                 return;
             }    
             throw error;

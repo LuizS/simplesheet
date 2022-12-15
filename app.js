@@ -1,16 +1,16 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 
-var indexRouter = require('./dist/routes/index');
-var xSpreadsheetRouter = require('./dist/routes/x.spreadsheet.routes');
-var handsontableRouter = require('./dist/routes/handsontable.routes');
-var jSpreadsheetRouter = require('./dist/routes/jspreadsheet.routes');
+let indexRouter = require('./dist/routes/index');
+let xSpreadsheetRouter = require('./dist/routes/x.spreadsheet.routes');
+let handsontableRouter = require('./dist/routes/handsontable.routes');
+let jSpreadsheetRouter = require('./dist/routes/jspreadsheet.routes');
 
-var app = express();
-
+let app = express();
+app.disable("x-powered-by");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

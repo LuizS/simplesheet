@@ -2,3 +2,7 @@
 node_modules
 .vscode
 dist
+sonar-project.properties
+.scannerwork/.sonar_lock
+.scannerwork/report-task.txt
+testResults/sonar-report.xml

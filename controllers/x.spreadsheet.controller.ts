@@ -12,7 +12,7 @@ class XSpreadsheetController extends StandardController {
 
         const data:object =  JSON.parse(req.body.sheetData) as object;
         await this.repository.saveAll(this.viewModelConverter.convertToModels(data));
-        void res.redirect("/");
+        res.redirect("/");
 
     }
 }
