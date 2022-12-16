@@ -4,7 +4,6 @@ import StandardViewModelConverter from '../viewmodel_converters/standard.viewmod
 import { Request, Response } from 'express'
 import { SheetDataViewModel } from '../viewmodels/sheet.data.viewmodel'
 import { CellViewModel } from '../viewmodels/cell.viewmodel'
-import { Cell } from '../models/cell'
 
 abstract class StandardController {
   protected componentName: string
@@ -43,7 +42,7 @@ abstract class StandardController {
   }
 
   async saveAll(req: Request, res: Response) {
-    const sheetData = req.body.sheetData as string
+    const sheetData = (req.body as Record<string,string>).sheetData
 
     if (sheetData == null || sheetData == '') {
       res.sendStatus(400)

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
 require('dotenv').config()
 import { MongoClient } from 'mongodb'
 import IDbModel from './i.db.model'
@@ -65,7 +66,7 @@ export default class DbModel<T> implements IDbModel<T> {
   public async saveAll(data: T[]) {
     try {
       const collection = this.getCollection()
-      collection.deleteMany({}).then(() => collection.insertMany(data as Document[]))
+      await collection.deleteMany({}).then(() => collection.insertMany(data as Document[]))
     } catch (e) {
       const error: Error = e as Error
       console.log(`A MongoReadException occurred: ${error.message}.`)

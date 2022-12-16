@@ -11,7 +11,7 @@ class XSpreadsheetController extends StandardController {
     }
 
     override async saveAll(req: Request, res: Response){
-        const sheetData = req.body.sheetData as string;
+        const sheetData = (req.body as Record<string,string>).sheetData;
 
         if (sheetData == null || sheetData == "")
         {
@@ -19,7 +19,7 @@ class XSpreadsheetController extends StandardController {
             return;
         }
         try{
-            const data:object =  JSON.parse(req.body.sheetData) as object;
+            const data:object =  JSON.parse(sheetData) as object;
             await this.repository.saveAll(this.viewModelConverter.convertToModels(data));
             res.redirect("/");
         } catch(e)
