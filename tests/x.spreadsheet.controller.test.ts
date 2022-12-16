@@ -1,6 +1,5 @@
 import { Cell } from '../models/cell'
-import HandsontableController from '../controllers/handsontable.controller'
-import StandardViewModelConverter from '../viewmodel_converters/standard.viewmodel.converter'
+import XSpreadsheetController from '../controllers/x.spreadsheet.controller'
 import httpMock from 'node-mocks-http'
 import ICellRepository from '../data/i.cell.repository'
 import iDbModel from '../data/i.db.model'
@@ -23,7 +22,7 @@ class FakeRepository implements ICellRepository {
   }
 }
 
-describe('testing standard controller', () => {
+describe('testing XSpreadsheet controller', () => {
   describe('testing save', () => {
     test('empty sheetData in body returns an 400 error', () => {
       const request = httpMock.createRequest({
@@ -33,10 +32,7 @@ describe('testing standard controller', () => {
       })
       const response = httpMock.createResponse()
       const fakeRepository = new FakeRepository()
-      const objectUnderTest = new HandsontableController(
-        new StandardViewModelConverter(),
-        fakeRepository,
-      )
+      const objectUnderTest = new XSpreadsheetController(fakeRepository)
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(400)
     })
@@ -46,10 +42,7 @@ describe('testing standard controller', () => {
       })
       const response = httpMock.createResponse()
       const fakeRepository = new FakeRepository()
-      const objectUnderTest = new HandsontableController(
-        new StandardViewModelConverter(),
-        fakeRepository,
-      )
+      const objectUnderTest = new XSpreadsheetController(fakeRepository)
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(400)
     })
@@ -61,10 +54,7 @@ describe('testing standard controller', () => {
       })
       const response = httpMock.createResponse()
       const fakeRepository = new FakeRepository()
-      const objectUnderTest = new HandsontableController(
-        new StandardViewModelConverter(),
-        fakeRepository,
-      )
+      const objectUnderTest = new XSpreadsheetController(fakeRepository)
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(400)
     })
@@ -76,10 +66,7 @@ describe('testing standard controller', () => {
       })
       const response = httpMock.createResponse()
       const fakeRepository = new FakeRepository()
-      const objectUnderTest = new HandsontableController(
-        new StandardViewModelConverter(),
-        fakeRepository,
-      )
+      const objectUnderTest = new XSpreadsheetController(fakeRepository)
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(200)
       expect(fakeRepository.data).toStrictEqual([])
@@ -88,19 +75,16 @@ describe('testing standard controller', () => {
     test('sheetData with one Cell should save one Cell', () => {
       const request = httpMock.createRequest({
         body: {
-          sheetData: '[["FirstCell"]]',
+          sheetData: `{"0": {"cells":{"0": {"text": "First Cell"}}}}`,
         },
       })
       const response = httpMock.createResponse()
       const fakeRepository = new FakeRepository()
-      const objectUnderTest = new HandsontableController(
-        new StandardViewModelConverter(),
-        fakeRepository,
-      )
+      const objectUnderTest = new XSpreadsheetController(fakeRepository)
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(200)
       expect(fakeRepository.data).toStrictEqual([
-        { row: 0, column: 0, content: 'FirstCell' },
+        { row: 0, column: 0, content: 'First Cell' },
       ])
     })
   })

@@ -50,5 +50,4 @@ export default class XSpreadsheetViewModelConverter extends StandardViewModelCon
         
     }
 
-
 }

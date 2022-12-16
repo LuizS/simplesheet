@@ -1,5 +1,5 @@
-export default interface IDbModel  {
-    getAll() : any;
-    save (object: any, query: any): Promise<void>;
-    saveAll(data: any[] ): Promise<void>;
+export default interface IDbModel<T> {
+  getAll(): Promise<T[]>
+  save(object: T, query: any): Promise<void>
+  saveAll(data: T[]): Promise<void>
 }

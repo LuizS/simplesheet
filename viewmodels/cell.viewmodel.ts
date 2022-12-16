@@ -1,5 +1,5 @@
 export type CellViewModel = {
-    row: number
-    column: number
-    content: string
+  row: number
+  column: number
+  content: string
 }
