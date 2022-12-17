@@ -1,14 +1,14 @@
-import DbModel from './db.model'
+import MongoRepository from './mongo/mongo.repository'
 import { Cell } from '../models/cell'
 import ICellRepository from './i.cell.repository'
-import IDbModel from './i.db.model'
+import IRepository from './i.repository'
 
 class CellRepository implements ICellRepository {
   constructor() {
-    this.dbModel = new DbModel('sheetContents')
+    this.dbModel = new MongoRepository('sheetContents')
   }
 
-  dbModel: IDbModel<Cell>
+  dbModel: IRepository<Cell>
 
   async getAll(): Promise<Cell[]> {
     return this.dbModel.getAll()

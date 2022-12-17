@@ -3,7 +3,7 @@ import HandsontableController from '../controllers/handsontable.controller'
 import StandardViewModelConverter from '../viewmodel_converters/standard.viewmodel.converter'
 import httpMock from 'node-mocks-http'
 import ICellRepository from '../data/i.cell.repository'
-import iDbModel from '../data/i.db.model'
+import iDbModel from '../data/i.repository'
 
 class FakeRepository implements ICellRepository {
   dbModel!: iDbModel
@@ -99,9 +99,7 @@ describe('testing standard controller', () => {
       )
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(200)
-      expect(fakeRepository.data).toStrictEqual([
-        { row: 0, column: 0, content: 'FirstCell' },
-      ])
+      expect(fakeRepository.data[0].equals(new Cell(0, 0,'FirstCell'))).toBeTruthy
     })
   })
 })

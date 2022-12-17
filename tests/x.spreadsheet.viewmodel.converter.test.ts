@@ -51,30 +51,18 @@ describe('testing XSpreadSheetViewModelConverter', () => {
     })
 
     test('viewmodel with on cell convert to one cell', () => {
-      const expectedResult: Cell = {
-        row: 0,
-        column: 0,
-        content: 'Just One Cell',
-      }
+      const expectedResult = new Cell (0,0,'Just One Cell')
       const input: XSpreadsheetRow = {
         cells: { 0: { text: 'Just One Cell' } as XSpreadsheetCell },
       }
       const result = viewModelConverter.convertToModels({ '0': input })
-      expect(result).toStrictEqual([expectedResult])
+      expect(result.length).toBe(1)
+      expect(result[0].equals(expectedResult)).toBeTruthy
     })
 
     test('viewmodel with two cells convert to two cells', () => {
       const expectedResult: Cell[] = [
-        {
-          row: 0,
-          column: 0,
-          content: 'First Cell',
-        },
-        {
-          row: 2,
-          column: 3,
-          content: 'Second Cell',
-        },
+        new Cell(0,0,'First Cell'), new Cell(2,3,'Second Cell')
       ]
 
       const input = {
@@ -91,22 +79,14 @@ describe('testing XSpreadSheetViewModelConverter', () => {
       }
 
       const result = viewModelConverter.convertToModels(input)
-      expect(result).toStrictEqual(expectedResult)
+      expect(result.length).toBe(2)
+      for (let index = 0; index < result.length; index++) {
+        expect(result[index].equals(expectedResult[index])).toBeTruthy
+      }
     })
 
     test('viewmodel with two cells and the len property set converted to two cells and the len property is ignorated', () => {
-      const expectedResult: Cell[] = [
-        {
-          row: 0,
-          column: 0,
-          content: 'First Cell',
-        },
-        {
-          row: 2,
-          column: 3,
-          content: 'Second Cell',
-        },
-      ]
+      const expectedResult: Cell[] = [new Cell(0,0,'First Cell'), new Cell(2,3,'Second Cell')]
 
       const input = {
         '0': {
@@ -123,7 +103,10 @@ describe('testing XSpreadSheetViewModelConverter', () => {
       }
 
       const result = viewModelConverter.convertToModels(input)
-      expect(result).toStrictEqual(expectedResult)
+      expect(result.length).toBe(2)
+      for (let index = 0; index < result.length; index++) {
+        expect(result[index].equals(expectedResult[index])).toBeTruthy
+      }
     })
   })
 })

@@ -2,16 +2,8 @@ import { Cell } from '../models/cell'
 import StandardViewModelConverter from '../viewmodel_converters/standard.viewmodel.converter'
 
 const viewModelConverter = new StandardViewModelConverter()
-const cell1: Cell = {
-  row: 0,
-  column: 0,
-  content: 'First Cell',
-}
-const cell2: Cell = {
-  row: 2,
-  column: 3,
-  content: 'Second Cell',
-}
+const cell1: Cell = new Cell(0,0,'First Cell')
+const cell2: Cell = new Cell(2,3,'Second Cell')
 
 describe('testing standard view model converter', () => {
   describe('testing convert to view models', () => {
@@ -41,27 +33,15 @@ describe('testing standard view model converter', () => {
     })
 
     test('viewmodel with on cell convert to one cell', () => {
-      const expectedResult: Cell = {
-        row: 0,
-        column: 0,
-        content: 'Just One Cell',
-      }
+      const expectedResult: Cell = new Cell(0,0,'Just One Cell')
       const result = viewModelConverter.convertToModels([['Just One Cell']])
-      expect(result).toStrictEqual([expectedResult])
+      expect(result[0].equals(expectedResult)).toBeTruthy
     })
 
     test('viewmodel with two cells convert to two cells', () => {
       const expectedResult: Cell[] = [
-        {
-          row: 0,
-          column: 0,
-          content: 'First Cell',
-        },
-        {
-          row: 2,
-          column: 3,
-          content: 'The Second Cell',
-        },
+        new Cell(0,0,'First Cell'),
+        new Cell(2,3,'The Second Cell')
       ]
 
       const input: string[][] = []
@@ -71,7 +51,7 @@ describe('testing standard view model converter', () => {
       input[2][3] = 'The Second Cell'
 
       const result = viewModelConverter.convertToModels(input)
-      expect(result).toStrictEqual(expectedResult)
+      expect(result.keys()).toStrictEqual(expectedResult.keys())
     })
   })
 })

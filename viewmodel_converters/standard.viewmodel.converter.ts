@@ -3,13 +3,7 @@ import { CellViewModel } from '../viewmodels/cell.viewmodel'
 
 export default class StandardViewModelConverter {
   convertToModel(row: number, column: number, content: string): Cell {
-    const cell: Cell = {
-      row: row,
-      column: column,
-      content: content,
-    }
-
-    return cell
+    return new Cell(row, column, content)
   }
 
   convertToModels(data: CellViewModel[][] | unknown): Cell[] {

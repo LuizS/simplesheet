@@ -2,7 +2,7 @@ import { Cell } from '../models/cell'
 import XSpreadsheetController from '../controllers/x.spreadsheet.controller'
 import httpMock from 'node-mocks-http'
 import ICellRepository from '../data/i.cell.repository'
-import iDbModel from '../data/i.db.model'
+import iDbModel from '../data/i.repository'
 
 class FakeRepository implements ICellRepository {
   dbModel!: iDbModel
@@ -83,9 +83,12 @@ describe('testing XSpreadsheet controller', () => {
       const objectUnderTest = new XSpreadsheetController(fakeRepository)
       void objectUnderTest.saveAll(request, response)
       expect(response._getStatusCode()).toBe(200)
-      expect(fakeRepository.data).toStrictEqual([
-        { row: 0, column: 0, content: 'First Cell' },
-      ])
+      expect(fakeRepository.data[0].key()).toStrictEqual(
+         new Cell(0, 0, 'First Cell' ).key()
+      )
+      expect(fakeRepository.data[0].content).toStrictEqual(
+        new Cell(0, 0, 'First Cell' ).content
+     )
     })
   })
 })

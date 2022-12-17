@@ -1,8 +1,8 @@
 import { Cell } from '../models/cell'
-import IDbModel from './i.db.model'
+import IRepository from './i.repository'
 
 export default interface ICellRepository {
-  dbModel: IDbModel<Cell>
+  dbModel: IRepository<Cell>
   getAll(): Promise<Cell[]>
   save(cell: Cell): Promise<void>
   saveAll(data: unknown[]): Promise<void>

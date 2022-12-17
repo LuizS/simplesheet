@@ -6,14 +6,7 @@ import StandardViewModelConverter from "./standard.viewmodel.converter"
 export default class XSpreadsheetViewModelConverter extends StandardViewModelConverter{
 
     override convertToModel(row: number, column: number, content: string) : Cell {
-
-        const cell: Cell = {
-            row: row,
-            column: column,
-            content: content
-        }
-
-        return cell;
+        return new Cell(row, column, content)
     }
 
     override convertToModels(data:object) : Cell[]{
